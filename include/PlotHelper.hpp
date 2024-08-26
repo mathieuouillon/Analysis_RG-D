@@ -18,8 +18,10 @@
 #include <TColor.h>
 #include <TROOT.h>
 #include <TStyle.h>
+#include <TRatioPlot.h>
 
 #include "Constantes.hpp"
+#include "FitFunction.hpp"
 
 namespace Helper {
 
@@ -160,7 +162,7 @@ namespace Helper {
         TObjArray boxes;
         for (const auto &h: {args...}) {
             auto st = dynamic_cast<TPaveStats *>(h->GetListOfFunctions()->FindObject("stats"));
-            //st->SetTextColor(h->GetLineColor());
+            st->SetTextColor(h->GetLineColor());
             st->Draw();
             boxes.Add(st);
         }
@@ -248,6 +250,8 @@ struct ArgsHist1D {
     const std::string fLegend1;
     const std::string fLegend2;
 
+    const std::string fTitle = "";
+
     // Log scale
     const bool fLogX = false;
     const bool fLogY = false;
@@ -271,9 +275,27 @@ auto DrawHist1D(const std::shared_ptr<TH1> &h, const std::string &path, const Ar
     h->SetMinimum(args.fSetMinimum);
     h->SetMaximum(h->GetMaximum() + 0.2 * h->GetMaximum());
     h->SetStats(args.fSetStats);
+    h->SetTitle(args.fTitle.c_str());
+
     if (args.fFitFunc) {
-        h->Fit(args.fFitFunc.get(), "Q", "", args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax());
+        h->Fit(args.fFitFunc.get(), "", "", args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax());
         args.fFitFunc->Draw("same");
+
+        // improve the picture:
+        TF1 *backFcn = new TF1("backFcn",pol3,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
+        backFcn->SetLineColor(Helper::Color::kLightGreen);
+        TF1 *signalFcn = new TF1("signalFcn",Breit_Wigner,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
+        signalFcn->SetLineColor(Helper::Color::kDarkBlue);
+        Double_t par[7];
+        
+        // writes the fit results into the par array
+        args.fFitFunc->GetParameters(par);
+
+        backFcn->SetParameters(par);
+        backFcn->Draw("same");
+        
+        signalFcn->SetParameters(par);
+        signalFcn->Draw("same");
     }
 
     if (args.fXRange.first != 0 && args.fXRange.second != 0)
@@ -305,3 +327,56 @@ auto DrawHist1D(const std::shared_ptr<TH1> &h, const std::string &path, const Ar
     Helper::SaveCanvas(canvas, path, myFileName);
 }
 
+auto Draw_hist_ratio(const std::shared_ptr<TH1> &h1, const std::shared_ptr<TH1> &h2, const std::string &path, const ArgsHist1D &args = {}) -> void {
+    const auto canvas     = Helper::MakeCanvas();
+    const auto myFileName = args.fFileName.empty() ? h1->GetName() : args.fFileName;
+
+    gStyle->SetOptStat(args.fOptStat.c_str());
+
+    auto rp = std::make_unique<TRatioPlot>(h1.get(), h2.get());
+
+    h1->SetLineColor(args.fColor1);
+    h2->SetLineColor(args.fColor2);
+    h1->SetStats(args.fSetStats);
+    h2->SetStats(args.fSetStats);
+    
+    h1->GetXaxis()->SetTitle(args.fLabel.data());
+    h1->GetXaxis()->SetTitleOffset(args.fLabelOffset);
+    h1->GetXaxis()->SetTitleSize(args.fLabelSize);
+    h2->Draw();
+    
+    rp->Draw();
+
+
+    if (!args.fLegend1.empty()) {
+        rp->GetUpperPad()->cd();
+        TLegend *legend = new TLegend();
+        legend->AddEntry(h1.get(),args.fLegend1.c_str(), "l");
+        legend->AddEntry(h2.get(),args.fLegend2.c_str(), "l");
+        legend->Draw();
+    }
+
+    canvas->Update();
+    TObjArray boxes;
+    
+    auto st1 = dynamic_cast<TPaveStats *>(h1->GetListOfFunctions()->FindObject("stats"));
+    st1->SetTextColor(h1->GetLineColor());
+    st1->Draw();
+    boxes.Add(st1);
+    
+    auto st2 = dynamic_cast<TPaveStats *>(h2->GetListOfFunctions()->FindObject("stats"));
+    if (st2) {
+        st2->SetTextColor(h2->GetLineColor());
+        st2->Draw();
+        boxes.Add(st2);
+    std::cerr << "Stats box found!\n";
+    } else {
+    std::cerr << "No stats box found!\n";
+    }
+
+    Helper::UpdateTileStats(boxes, false);
+    canvas->Modified();
+    
+    Helper::SaveCanvas(canvas, path, myFileName);
+
+}

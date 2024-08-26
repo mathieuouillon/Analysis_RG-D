@@ -1,0 +1,3 @@
+/work/clas12/ouillon/Analysis_RG-D/Debug/CMakeFiles/Analysis_RG-D.dir
+/work/clas12/ouillon/Analysis_RG-D/Debug/CMakeFiles/edit_cache.dir
+/work/clas12/ouillon/Analysis_RG-D/Debug/CMakeFiles/rebuild_cache.dir

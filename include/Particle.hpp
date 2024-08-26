@@ -48,6 +48,7 @@ namespace Core {
         [[nodiscard]] auto Index() const -> int { return fIndex; }
         [[nodiscard]] auto Charge() const -> int { return fCharge; }
         [[nodiscard]] auto PdgCode() const -> int { return fPdgCode; }
+        [[nodiscard]] auto StatusCode() const -> int { return fStatusCode; }
 
         [[nodiscard]] auto Beta() const -> double { return fBeta; }
         [[nodiscard]] auto ChiSquare() const -> double { return fChiSquare; }

@@ -102,12 +102,29 @@ auto RGD::Reader::operator()(const std::string &file) -> void {
 
                 Event event(electron, pionPlus, pionMinus, beamEnergy);
 
-                if(event.W2() > 4) {
+                fHistograms.eventKinematics.hist1D_W->Get()->Fill(event.W());
+                fHistograms.eventKinematics.hist1D_Q2->Get()->Fill(event.W());
+                fHistograms.eventKinematics.hist1D_nu->Get()->Fill(event.nu());
+
+                if(event.W() > 2) {
+                    fHistograms.eventKinematics.hist1D_zh->Get()->Fill(event.Zh());
                     if(event.Zh() > 0.9) {
+                        fHistograms.eventKinematics.hist1D_t->Get()->Fill(-event.T());
                         if (0.1 < -event.T() && -event.T() < 0.5) {
+                            fHistograms.eventKinematics.hist1D_lc->Get()->Fill(event.Lc());
                             if(event.Lc() <= 0.5) {
-
-
+                                if (1 <= event.Q2() && event.Q2() < 2) 
+                                    fHistograms.q2Bins.hist1D_inv_Mass_Q12->Get()->Fill(invMass);
+                                if (2 <= event.Q2() && event.Q2() < 2.5) 
+                                    fHistograms.q2Bins.hist1D_inv_Mass_Q225->Get()->Fill(invMass);
+                                if (2.5 <= event.Q2() && event.Q2() < 3)
+                                    fHistograms.q2Bins.hist1D_inv_Mass_Q253->Get()->Fill(invMass);
+                                if (3 <= event.Q2() && event.Q2() < 3.5)
+                                    fHistograms.q2Bins.hist1D_inv_Mass_Q335->Get()->Fill(invMass);
+                                if (3.5 <= event.Q2() && event.Q2() < 4.5)
+                                    fHistograms.q2Bins.hist1D_inv_Mass_Q3545->Get()->Fill(invMass);
+                                if (4.5 <= event.Q2() && event.Q2() < 6)
+                                    fHistograms.q2Bins.hist1D_inv_Mass_Q456->Get()->Fill(invMass);
 
                             }
                         }

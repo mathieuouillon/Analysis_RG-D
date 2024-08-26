@@ -424,4 +424,9 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TProfile.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TColor.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TStyle.h \
- /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TColor.h
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TColor.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TRatioPlot.h \
+ /work/clas12/ouillon/Analysis_RG-D/include/FitFunction.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Status_Reader.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Status_Histograms.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Status_Ploter.hpp

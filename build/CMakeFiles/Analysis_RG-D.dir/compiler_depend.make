@@ -122,6 +122,7 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: /work/clas12/ouillon/Analysis_RG
   /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TProfile.h \
   /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TQObject.h \
   /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TROOT.h \
+  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TRatioPlot.h \
   /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TSchemaHelper.h \
   /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TSeqCollection.h \
   /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TStorage.h \
@@ -516,16 +517,28 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: /work/clas12/ouillon/Analysis_RG
   /work/clas12/ouillon/Analysis_RG-D/include/Constantes.hpp \
   /work/clas12/ouillon/Analysis_RG-D/include/Counter.hpp \
   /work/clas12/ouillon/Analysis_RG-D/include/Event.hpp \
+  /work/clas12/ouillon/Analysis_RG-D/include/FitFunction.hpp \
   /work/clas12/ouillon/Analysis_RG-D/include/Histograms.hpp \
   /work/clas12/ouillon/Analysis_RG-D/include/Particle.hpp \
   /work/clas12/ouillon/Analysis_RG-D/include/PlotHelper.hpp \
   /work/clas12/ouillon/Analysis_RG-D/include/Ploter.hpp \
-  /work/clas12/ouillon/Analysis_RG-D/include/RGD_Reader.hpp
+  /work/clas12/ouillon/Analysis_RG-D/include/RGD_Reader.hpp \
+  /work/clas12/ouillon/Analysis_RG-D/include/Status_Histograms.hpp \
+  /work/clas12/ouillon/Analysis_RG-D/include/Status_Ploter.hpp \
+  /work/clas12/ouillon/Analysis_RG-D/include/Status_Reader.hpp
 
+
+/work/clas12/ouillon/Analysis_RG-D/include/Status_Reader.hpp:
+
+/work/clas12/ouillon/Analysis_RG-D/include/Status_Ploter.hpp:
+
+/work/clas12/ouillon/Analysis_RG-D/include/Status_Histograms.hpp:
 
 /work/clas12/ouillon/Analysis_RG-D/include/PlotHelper.hpp:
 
 /work/clas12/ouillon/Analysis_RG-D/include/Histograms.hpp:
+
+/work/clas12/ouillon/Analysis_RG-D/include/FitFunction.hpp:
 
 /work/clas12/ouillon/Analysis_RG-D/include/Event.hpp:
 
@@ -745,6 +758,8 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: /work/clas12/ouillon/Analysis_RG
 
 /usr/include/c++/11/bits/streambuf.tcc:
 
+/usr/include/c++/11/bits/stl_uninitialized.h:
+
 /usr/include/bits/local_lim.h:
 
 /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/THStack.h:
@@ -826,6 +841,8 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: /work/clas12/ouillon/Analysis_RG
 /usr/include/c++/11/bits/allocator.h:
 
 /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TSeqCollection.h:
+
+/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TRatioPlot.h:
 
 /usr/include/bits/floatn.h:
 
@@ -1558,5 +1575,3 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: /work/clas12/ouillon/Analysis_RG
 /usr/include/c++/11/bits/fs_fwd.h:
 
 /usr/include/c++/11/bits/stl_pair.h:
-
-/usr/include/c++/11/bits/stl_uninitialized.h:

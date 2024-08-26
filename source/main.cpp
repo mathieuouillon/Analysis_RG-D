@@ -10,6 +10,9 @@
 #include "Histograms.hpp"
 #include "Ploter.hpp"
 #include "Counter.hpp"
+#include "Status_Reader.hpp"
+#include "Status_Histograms.hpp"
+#include "Status_Ploter.hpp"
 
 
 template<typename T>
@@ -82,15 +85,26 @@ auto main(int argc, char *argv[]) -> int {
     std::cout << "size : " << files.size() << std::endl;
 
 
-    auto histograms = Histograms();
+    
     Counter counter;
+    
+    // --------------------------------------------------------------------------------------------
+    // Matt study : -----------------------------------------------------------------------------
+    auto histograms = Histograms();
     RGD::Reader reader(histograms, counter);
     multiThreadReader(reader, files, 10);
-
-    // ploter(histograms);
+    ploter(histograms);
 
     std::cout << "nb electron : " << counter.nb_e << std::endl;
     std::cout << "nb_pion_plus : " << counter.nb_pion_plus << std::endl;
     std::cout << "nb_pion_minus : " << counter.nb_pion_minus << std::endl;
 
+    // --------------------------------------------------------------------------------------------
+    // Status study : -----------------------------------------------------------------------------
+    // auto histograms = Status_study::Histograms();
+    // Status_study::Reader reader(histograms, counter);
+    // multiThreadReader(reader, files, 5);
+    // Status_study::ploter(histograms);
+    // std::cout << "nb nb_e_neg_status : " << counter.nb_e_neg_status << std::endl;
+    // std::cout << "nb_e_status_2000 : " << counter.nb_e_status_2000 << std::endl;
 }
