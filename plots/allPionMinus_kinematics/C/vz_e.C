@@ -4,8 +4,9 @@
 void vz_e()
 {
 //=========Macro generated from canvas: c1/
-//=========  (Mon Aug 26 14:30:20 2024) by ROOT version 6.30/04
+//=========  (Tue Aug 27 13:04:49 2024) by ROOT version 6.30/04
    TCanvas *c1 = new TCanvas("c1", "",0,0,800,600);
+   gStyle->SetOptFit(1);
    c1->SetHighLightColor(2);
    c1->Range(-26.31579,-168390.4,26.31579,1234863);
    c1->SetFillColor(0);
@@ -240,7 +241,7 @@ void vz_e()
    ptstats_LaTex = ptstats->AddText("Mean  = -5.188");
    ptstats_LaTex = ptstats->AddText("Std Dev   =  4.564");
    ptstats->SetOptStat(1110);
-   ptstats->SetOptFit(0);
+   ptstats->SetOptFit(1111);
    ptstats->Draw();
    vz_e__14->GetListOfFunctions()->Add(ptstats);
    ptstats->SetParent(vz_e__14);
@@ -272,7 +273,7 @@ void vz_e()
    ptstats_LaTex = ptstats->AddText("Mean  = -5.188");
    ptstats_LaTex = ptstats->AddText("Std Dev   =  4.564");
    ptstats->SetOptStat(1110);
-   ptstats->SetOptFit(0);
+   ptstats->SetOptFit(1111);
    ptstats->Draw();
    c1->Modified();
    c1->SetSelected(c1);

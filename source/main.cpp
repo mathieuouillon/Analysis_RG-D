@@ -88,23 +88,30 @@ auto main(int argc, char *argv[]) -> int {
     
     Counter counter;
     
+    
     // --------------------------------------------------------------------------------------------
     // Matt study : -----------------------------------------------------------------------------
     auto histograms = Histograms();
     RGD::Reader reader(histograms, counter);
-    multiThreadReader(reader, files, 10);
+    multiThreadReader(reader, files, 6);
     ploter(histograms);
 
     std::cout << "nb electron : " << counter.nb_e << std::endl;
     std::cout << "nb_pion_plus : " << counter.nb_pion_plus << std::endl;
     std::cout << "nb_pion_minus : " << counter.nb_pion_minus << std::endl;
+    std::cout << "nb_pion_plus_forward : " << counter.nb_pion_plus_forward << std::endl;
+    std::cout << "nb_pion_plus_central : " << counter.nb_pion_plus_central << std::endl;  
+    std::cout << "nb_pion_minus_forward : " << counter.nb_pion_minus_forward << std::endl;
+    std::cout << "nb_pion_minus_central : " << counter.nb_pion_minus_central << std::endl;  
 
+    /*
     // --------------------------------------------------------------------------------------------
     // Status study : -----------------------------------------------------------------------------
-    // auto histograms = Status_study::Histograms();
-    // Status_study::Reader reader(histograms, counter);
-    // multiThreadReader(reader, files, 5);
-    // Status_study::ploter(histograms);
-    // std::cout << "nb nb_e_neg_status : " << counter.nb_e_neg_status << std::endl;
-    // std::cout << "nb_e_status_2000 : " << counter.nb_e_status_2000 << std::endl;
+    auto histograms = Status_study::Histograms();
+    Status_study::Reader reader(histograms, counter);
+    multiThreadReader(reader, files, 10);
+    Status_study::ploter(histograms);
+    std::cout << "nb nb_e_neg_status : " << counter.nb_e_neg_status << std::endl;
+    std::cout << "nb_e_status_2000 : " << counter.nb_e_status_2000 << std::endl;
+    */
 }

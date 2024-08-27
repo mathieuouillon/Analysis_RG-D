@@ -4,10 +4,10 @@
 void status()
 {
 //=========Macro generated from canvas: c1/
-//=========  (Mon Aug 26 09:55:18 2024) by ROOT version 6.30/04
+//=========  (Tue Aug 27 11:34:22 2024) by ROOT version 6.30/04
    TCanvas *c1 = new TCanvas("c1", "",0,0,800,600);
    c1->SetHighLightColor(2);
-   c1->Range(-5263.158,-1.390743e+07,5263.158,1.019878e+08);
+   c1->Range(-5263.158,-2.30083e+07,5263.158,1.687275e+08);
    c1->SetFillColor(0);
    c1->SetBorderMode(0);
    c1->SetBorderSize(2);
@@ -19,11 +19,12 @@ void status()
    c1->SetFrameBorderMode(0);
    
    TH1F *status__16 = new TH1F("status__16","",200,-4000,4000);
-   status__16->SetBinContent(45,8.388608e+07);
-   status__16->SetBinContent(47,1.293446e+07);
-   status__16->SetBinContent(48,630196);
-   status__16->SetBinContent(151,209780);
-   status__16->SetEntries(1.495653e+08);
+   status__16->SetBinContent(45,1.387802e+08);
+   status__16->SetBinContent(47,1.324858e+07);
+   status__16->SetBinContent(48,743691);
+   status__16->SetBinContent(151,262754);
+   status__16->SetBinContent(156,1);
+   status__16->SetEntries(1.530352e+08);
    status__16->SetDirectory(nullptr);
    
    TPaveStats *ptstats = new TPaveStats(0.52,0.835,0.75,0.995,"brNDC");
@@ -37,9 +38,9 @@ void status()
    ci = TColor::GetColor("#121415");
    ptstats->SetTextColor(ci);
    ptstats->SetTextFont(42);
-   TText *ptstats_LaTex = ptstats->AddText("Entries =   1.495653e+08");
-   ptstats_LaTex = ptstats->AddText("Mean  =  -2212");
-   ptstats_LaTex = ptstats->AddText("Std Dev   =  161.5");
+   TText *ptstats_LaTex = ptstats->AddText("Entries =   1.530352e+08");
+   ptstats_LaTex = ptstats->AddText("Mean  =  -2211");
+   ptstats_LaTex = ptstats->AddText("Std Dev   =    178");
    ptstats->SetOptStat(1110);
    ptstats->SetOptFit(0);
    ptstats->Draw();
@@ -62,7 +63,7 @@ void status()
    TPad *upper_pad__15 = new TPad("upper_pad", "",0.0025,0.3,0.9975,0.9975);
    upper_pad__15->Draw();
    upper_pad__15->cd();
-   upper_pad__15->Range(-5000,-5181199,5000,9.844278e+07);
+   upper_pad__15->Range(-5000,-8572377,5000,1.628752e+08);
    upper_pad__15->SetFillColor(0);
    upper_pad__15->SetBorderMode(0);
    upper_pad__15->SetBorderSize(2);
@@ -71,10 +72,10 @@ void status()
    upper_pad__15->SetFrameBorderMode(0);
    
    TH1F *status__17 = new TH1F("status__17","",200,-4000,4000);
-   status__17->SetBinContent(45,8.388608e+07);
-   status__17->SetBinContent(47,1.293545e+07);
-   status__17->SetBinContent(48,630597);
-   status__17->SetEntries(1.493667e+08);
+   status__17->SetBinContent(45,1.387909e+08);
+   status__17->SetBinContent(47,1.324968e+07);
+   status__17->SetBinContent(48,744245);
+   status__17->SetEntries(1.527848e+08);
    status__17->SetDirectory(nullptr);
    
    ptstats = new TPaveStats(0.75,0.835,0.98,0.995,"brNDC");
@@ -86,9 +87,9 @@ void status()
    ci = TColor::GetColor("#0c5da5");
    ptstats->SetTextColor(ci);
    ptstats->SetTextFont(42);
-   ptstats_LaTex = ptstats->AddText("Entries =   1.493667e+08");
-   ptstats_LaTex = ptstats->AddText("Mean  =  -2209");
-   ptstats_LaTex = ptstats->AddText("Std Dev   =  28.51");
+   ptstats_LaTex = ptstats->AddText("Entries =   1.527848e+08");
+   ptstats_LaTex = ptstats->AddText("Mean  =  -2212");
+   ptstats_LaTex = ptstats->AddText("Std Dev   =  23.84");
    ptstats->SetOptStat(1110);
    ptstats->SetOptFit(0);
    ptstats->Draw();
@@ -111,11 +112,12 @@ void status()
    status__17->Draw("Ahist");
    
    TH1F *status__18 = new TH1F("status__18","",200,-4000,4000);
-   status__18->SetBinContent(45,8.388608e+07);
-   status__18->SetBinContent(47,1.293446e+07);
-   status__18->SetBinContent(48,630196);
-   status__18->SetBinContent(151,209780);
-   status__18->SetEntries(1.495653e+08);
+   status__18->SetBinContent(45,1.387802e+08);
+   status__18->SetBinContent(47,1.324858e+07);
+   status__18->SetBinContent(48,743691);
+   status__18->SetBinContent(151,262754);
+   status__18->SetBinContent(156,1);
+   status__18->SetEntries(1.530352e+08);
    status__18->SetDirectory(nullptr);
    
    ptstats = new TPaveStats(0.52,0.835,0.75,0.995,"brNDC");
@@ -127,9 +129,9 @@ void status()
    ci = TColor::GetColor("#121415");
    ptstats->SetTextColor(ci);
    ptstats->SetTextFont(42);
-   ptstats_LaTex = ptstats->AddText("Entries =   1.495653e+08");
-   ptstats_LaTex = ptstats->AddText("Mean  =  -2212");
-   ptstats_LaTex = ptstats->AddText("Std Dev   =  161.5");
+   ptstats_LaTex = ptstats->AddText("Entries =   1.530352e+08");
+   ptstats_LaTex = ptstats->AddText("Mean  =  -2211");
+   ptstats_LaTex = ptstats->AddText("Std Dev   =    178");
    ptstats->SetOptStat(1110);
    ptstats->SetOptFit(0);
    ptstats->Draw();
@@ -148,7 +150,7 @@ void status()
    status__18->GetZaxis()->SetTitleFont(42);
    status__18->Draw("AEsame");
    
-   TLegend *leg = new TLegend(0.1012658,0.1754386,0.4012658,0.3254386,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.1012658,0.1403509,0.4012658,0.2903509,NULL,"brNDC");
    leg->SetBorderSize(1);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
@@ -186,9 +188,9 @@ void status()
    ci = TColor::GetColor("#0c5da5");
    ptstats->SetTextColor(ci);
    ptstats->SetTextFont(42);
-   ptstats_LaTex = ptstats->AddText("Entries =   1.493667e+08");
-   ptstats_LaTex = ptstats->AddText("Mean  =  -2209");
-   ptstats_LaTex = ptstats->AddText("Std Dev   =  28.51");
+   ptstats_LaTex = ptstats->AddText("Entries =   1.527848e+08");
+   ptstats_LaTex = ptstats->AddText("Mean  =  -2212");
+   ptstats_LaTex = ptstats->AddText("Std Dev   =  23.84");
    ptstats->SetOptStat(1110);
    ptstats->SetOptFit(0);
    ptstats->Draw();
@@ -202,9 +204,9 @@ void status()
    ci = TColor::GetColor("#121415");
    ptstats->SetTextColor(ci);
    ptstats->SetTextFont(42);
-   ptstats_LaTex = ptstats->AddText("Entries =   1.495653e+08");
-   ptstats_LaTex = ptstats->AddText("Mean  =  -2212");
-   ptstats_LaTex = ptstats->AddText("Std Dev   =  161.5");
+   ptstats_LaTex = ptstats->AddText("Entries =   1.530352e+08");
+   ptstats_LaTex = ptstats->AddText("Mean  =  -2211");
+   ptstats_LaTex = ptstats->AddText("Std Dev   =    178");
    ptstats->SetOptStat(1110);
    ptstats->SetOptFit(0);
    ptstats->Draw();
@@ -215,7 +217,7 @@ void status()
    TPad *lower_pad__16 = new TPad("lower_pad", "",0.0025,0.0025,0.9975,0.3);
    lower_pad__16->Draw();
    lower_pad__16->cd();
-   lower_pad__16->Range(-5000,-0.5089219,5000,1.187484);
+   lower_pad__16->Range(-5000,-2.69228,5000,6.281985);
    lower_pad__16->SetFillColor(0);
    lower_pad__16->SetBorderMode(0);
    lower_pad__16->SetBorderSize(2);
@@ -224,20 +226,20 @@ void status()
    lower_pad__16->SetFrameBorderMode(0);
    lower_pad__16->SetFrameBorderMode(0);
    
-   Double_t Graph_fx3006[4] = { -2220, -2140, -2100, 2020 };
-   Double_t Graph_fy3006[4] = { 1, 1.000077, 1.000636, 0 };
-   Double_t Graph_felx3006[4] = { 20, 20, 20, 20 };
-   Double_t Graph_fely3006[4] = { 0.0001544081, 0.0003932474, 0.001782313, 0 };
-   Double_t Graph_fehx3006[4] = { 20, 20, 20, 20 };
-   Double_t Graph_fehy3006[4] = { 0.0001544319, 0.0003934021, 0.001785493, 8.776002e-06 };
-   TGraphAsymmErrors *grae = new TGraphAsymmErrors(4,Graph_fx3006,Graph_fy3006,Graph_felx3006,Graph_fehx3006,Graph_fely3006,Graph_fehy3006);
+   Double_t Graph_fx3006[5] = { -2220, -2140, -2100, 2020, 2220 };
+   Double_t Graph_fy3006[5] = { 1.000077, 1.000083, 1.000745, 0, 0 };
+   Double_t Graph_felx3006[5] = { 20, 20, 20, 20, 20 };
+   Double_t Graph_fely3006[5] = { 0.0001200539, 0.0003885593, 0.00164082, 0, 0 };
+   Double_t Graph_fehx3006[5] = { 20, 20, 20, 20, 20 };
+   Double_t Graph_fehy3006[5] = { 0.0001200683, 0.0003887103, 0.001643514, 7.006661e-06, 5.302974 };
+   TGraphAsymmErrors *grae = new TGraphAsymmErrors(5,Graph_fx3006,Graph_fy3006,Graph_felx3006,Graph_fehx3006,Graph_fely3006,Graph_fehy3006);
    grae->SetName("");
    grae->SetTitle("");
    grae->SetFillStyle(1000);
    
    TH1F *Graph_Graph3006 = new TH1F("Graph_Graph3006","",100,-4000,4000);
    Graph_Graph3006->SetMinimum(0);
-   Graph_Graph3006->SetMaximum(1.102664);
+   Graph_Graph3006->SetMaximum(5.833272);
    Graph_Graph3006->SetDirectory(nullptr);
    Graph_Graph3006->SetStats(0);
 
@@ -259,6 +261,9 @@ void status()
    line->SetLineStyle(2);
    line->Draw();
    line = new TLine(-4000,1,4000,1);
+   line->SetLineStyle(2);
+   line->Draw();
+   line = new TLine(-4000,1.3,4000,1.3);
    line->SetLineStyle(2);
    line->Draw();
    lower_pad__16->Modified();
@@ -285,7 +290,7 @@ void status()
    gaxis->SetTitleFont(42);
    gaxis->SetLabelFont(42);
    gaxis->Draw();
-   gaxis = new TGaxis(0.1,0.335,0.1,0.93,0,8.808038e+07,510,"S");
+   gaxis = new TGaxis(0.1,0.335,0.1,0.93,0,1.457304e+08,510,"S");
    gaxis->SetLabelOffset(0.005);
    gaxis->SetLabelSize(0.035);
    gaxis->SetTickSize(0.03);
@@ -308,7 +313,7 @@ void status()
    gaxis->SetTitle("status_{e}");
    gaxis->SetLabelFont(42);
    gaxis->Draw();
-   gaxis = new TGaxis(0.1,0.09000001,0.1,0.285,0,1.102664,510,"-S");
+   gaxis = new TGaxis(0.1,0.09000001,0.1,0.285,0,5.833272,510,"-S");
    gaxis->SetLabelOffset(0.005);
    gaxis->SetLabelSize(0.035);
    gaxis->SetTickSize(0.09153846);

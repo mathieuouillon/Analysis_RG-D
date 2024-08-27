@@ -50,9 +50,10 @@ Event::Event(const Core::Particle &electron, const  Core::Particle &pionPlus,
             fQ2 = -q1.M2();
             fW2 = (p1 + q1).M2();
             fNu = k1.E() - k2.E();
+            // fNu = q1.E();
             fT = (q1 - p_rho).M2();
             fZh = p_rho.E()/fNu;
-            fLc = 0.1973 * (2.0 * fNu / (Core::Constantes::ProtonMassSquare + fQ2));
+            fLc = 0.1973 * (2.0 * fNu / (Core::Constantes::Rho0MassSquare + fQ2));
 
 
         }

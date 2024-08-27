@@ -123,7 +123,7 @@ namespace Helper {
         double defY2 = 9.95e-01;
         if (haveFitPars) {
             defX1 = 7.0e-01;
-            defY1 = 8.0e-01;
+            defY1 = 7.0e-01;
             defX2 = 9.80e-01;
             defY2 = 9.95e-01;
         }
@@ -270,6 +270,7 @@ auto DrawHist1D(const std::shared_ptr<TH1> &h, const std::string &path, const Ar
     const auto myFileName = args.fFileName.empty() ? h->GetName() : args.fFileName;
 
     gStyle->SetOptStat(args.fOptStat.c_str());
+    gStyle->SetOptFit(1111);
 
     h->Draw(args.fDrawOption.c_str());
     h->SetMinimum(args.fSetMinimum);
@@ -278,13 +279,14 @@ auto DrawHist1D(const std::shared_ptr<TH1> &h, const std::string &path, const Ar
     h->SetTitle(args.fTitle.c_str());
 
     if (args.fFitFunc) {
-        h->Fit(args.fFitFunc.get(), "", "", args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax());
+        h->Fit(args.fFitFunc.get(), "R", "", args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax());
+        args.fFitFunc->SetNpx(1000);
         args.fFitFunc->Draw("same");
 
         // improve the picture:
         TF1 *backFcn = new TF1("backFcn",pol3,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
         backFcn->SetLineColor(Helper::Color::kLightGreen);
-        TF1 *signalFcn = new TF1("signalFcn",Breit_Wigner,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
+        TF1 *signalFcn = new TF1("signalFcn",BW,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
         signalFcn->SetLineColor(Helper::Color::kDarkBlue);
         Double_t par[7];
         
@@ -292,10 +294,17 @@ auto DrawHist1D(const std::shared_ptr<TH1> &h, const std::string &path, const Ar
         args.fFitFunc->GetParameters(par);
 
         backFcn->SetParameters(par);
+        backFcn->SetNpx(1000);
         backFcn->Draw("same");
         
         signalFcn->SetParameters(par);
+        signalFcn->SetNpx(1000);
         signalFcn->Draw("same");
+
+        double N_sig_exp = (abs(signalFcn->Integral(args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax())));
+        std::cout << "N_sig : " << N_sig_exp << std::endl;
+        // N_sigErr_exp = (abs(signalFcn.IntegralError(r1,r2,fsig_exp.GetParameters(),c_exp_sig.GetMatrixArray())))/h1_exp.GetBinWidth(1)
+
     }
 
     if (args.fXRange.first != 0 && args.fXRange.second != 0)

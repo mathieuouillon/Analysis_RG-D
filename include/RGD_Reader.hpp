@@ -31,7 +31,7 @@ namespace RGD {
 
         private:
             // ****** private members
-            double beamEnergy = 10.6;
+            double beamEnergy = 10.5;
             Histograms &fHistograms;
             Counter &fCounter;
 
@@ -71,6 +71,9 @@ auto RGD::Reader::operator()(const std::string &file) -> void {
             // Pion + kinematics
             for (auto &pionPlus : pionsPlus) {
                 fCounter.nb_pion_plus++;
+                if(pionPlus.StatusCode()/2000 == 1) fCounter.nb_pion_plus_forward++;
+                if(pionPlus.StatusCode()/4000 == 1) fCounter.nb_pion_plus_central++;
+
                 fHistograms.allPionPlusKinematics.hist1D_p->Get()->Fill(pionPlus.P());
                 fHistograms.allPionPlusKinematics.hist1D_phi->Get()->Fill(pionPlus.Phi());
                 fHistograms.allPionPlusKinematics.hist1D_theta->Get()->Fill(pionPlus.Theta());
@@ -81,6 +84,9 @@ auto RGD::Reader::operator()(const std::string &file) -> void {
             // Pion - kinematics
             for (auto &pionMinus : pionsMinus) {
                 fCounter.nb_pion_minus++;
+                if(pionMinus.StatusCode()/2000 == 1) fCounter.nb_pion_minus_forward++;
+                if(pionMinus.StatusCode()/4000 == 1) fCounter.nb_pion_minus_central++;
+
                 fHistograms.allPionMinusKinematics.hist1D_p->Get()->Fill(pionMinus.P());
                 fHistograms.allPionMinusKinematics.hist1D_phi->Get()->Fill(pionMinus.Phi());
                 fHistograms.allPionMinusKinematics.hist1D_theta->Get()->Fill(pionMinus.Theta());
@@ -103,13 +109,14 @@ auto RGD::Reader::operator()(const std::string &file) -> void {
                 Event event(electron, pionPlus, pionMinus, beamEnergy);
 
                 fHistograms.eventKinematics.hist1D_W->Get()->Fill(event.W());
-                fHistograms.eventKinematics.hist1D_Q2->Get()->Fill(event.W());
+                fHistograms.eventKinematics.hist1D_Q2->Get()->Fill(event.Q2());
                 fHistograms.eventKinematics.hist1D_nu->Get()->Fill(event.nu());
+                
+                fHistograms.eventKinematics.hist1D_t->Get()->Fill(-event.T());
 
                 if(event.W() > 2) {
                     fHistograms.eventKinematics.hist1D_zh->Get()->Fill(event.Zh());
                     if(event.Zh() > 0.9) {
-                        fHistograms.eventKinematics.hist1D_t->Get()->Fill(-event.T());
                         if (0.1 < -event.T() && -event.T() < 0.5) {
                             fHistograms.eventKinematics.hist1D_lc->Get()->Fill(event.Lc());
                             if(event.Lc() <= 0.5) {

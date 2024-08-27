@@ -4,8 +4,9 @@
 void phi_e()
 {
 //=========Macro generated from canvas: c1/
-//=========  (Mon Aug 26 14:30:20 2024) by ROOT version 6.30/04
+//=========  (Tue Aug 27 13:04:49 2024) by ROOT version 6.30/04
    TCanvas *c1 = new TCanvas("c1", "",0,0,800,600);
+   gStyle->SetOptFit(1);
    c1->SetHighLightColor(2);
    c1->Range(-250,-26289.09,250,192786.7);
    c1->SetFillColor(0);
@@ -228,7 +229,7 @@ void phi_e()
    ptstats_LaTex = ptstats->AddText("Mean  = -1.407");
    ptstats_LaTex = ptstats->AddText("Std Dev   =  102.4");
    ptstats->SetOptStat(1110);
-   ptstats->SetOptFit(0);
+   ptstats->SetOptFit(1111);
    ptstats->Draw();
    phi_e__12->GetListOfFunctions()->Add(ptstats);
    ptstats->SetParent(phi_e__12);
@@ -260,7 +261,7 @@ void phi_e()
    ptstats_LaTex = ptstats->AddText("Mean  = -1.407");
    ptstats_LaTex = ptstats->AddText("Std Dev   =  102.4");
    ptstats->SetOptStat(1110);
-   ptstats->SetOptFit(0);
+   ptstats->SetOptFit(1111);
    ptstats->Draw();
    c1->Modified();
    c1->SetSelected(c1);

@@ -4,8 +4,9 @@
 void theta_e()
 {
 //=========Macro generated from canvas: c1/
-//=========  (Mon Aug 26 14:30:20 2024) by ROOT version 6.30/04
+//=========  (Tue Aug 27 13:04:49 2024) by ROOT version 6.30/04
    TCanvas *c1 = new TCanvas("c1", "",0,0,800,600);
+   gStyle->SetOptFit(1);
    c1->SetHighLightColor(2);
    c1->Range(-5.526316,-127297.7,40.52632,933516.5);
    c1->SetFillColor(0);
@@ -236,7 +237,7 @@ void theta_e()
    ptstats_LaTex = ptstats->AddText("Mean  =  9.384");
    ptstats_LaTex = ptstats->AddText("Std Dev   =  3.919");
    ptstats->SetOptStat(1110);
-   ptstats->SetOptFit(0);
+   ptstats->SetOptFit(1111);
    ptstats->Draw();
    theta_e__3->GetListOfFunctions()->Add(ptstats);
    ptstats->SetParent(theta_e__3);
@@ -268,7 +269,7 @@ void theta_e()
    ptstats_LaTex = ptstats->AddText("Mean  =  9.384");
    ptstats_LaTex = ptstats->AddText("Std Dev   =  3.919");
    ptstats->SetOptStat(1110);
-   ptstats->SetOptFit(0);
+   ptstats->SetOptFit(1111);
    ptstats->Draw();
    c1->Modified();
    c1->SetSelected(c1);
