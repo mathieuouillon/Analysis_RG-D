@@ -5,14 +5,19 @@
 #include <iomanip>
 #include <vector>
 #include <filesystem>
-#include "BS_thread_pool.hpp"
-#include "RGD_Reader.hpp"
-#include "Histograms.hpp"
-#include "Ploter.hpp"
-#include "Counter.hpp"
-#include "Status_Reader.hpp"
-#include "Status_Histograms.hpp"
-#include "Status_Ploter.hpp"
+#include <set>
+
+#include "Core/BS_thread_pool.hpp"
+#include "Core/toml.hpp"
+#include "Matt_Study/RGD_Reader.hpp"
+#include "Matt_Study/Histograms.hpp"
+#include "Matt_Study/Ploter.hpp"
+#include "Matt_Study/RunTypes.hpp"
+
+#include "Core/Counter.hpp"
+#include "Status_Study/Status_Reader.hpp"
+#include "Status_Study/Status_Histograms.hpp"
+#include "Status_Study/Status_Ploter.hpp"
 
 
 template<typename T>
@@ -73,36 +78,171 @@ auto singleThreadReader(Reader &reader, std::vector<std::string> files, int nMax
 
 
 auto main(int argc, char *argv[]) -> int {
-    std::cout << "test" << std::endl;
 
-    std::vector<std::string> runs = {"/cache/hallb/scratch/rg-d/production/prod/v4ob_aideCxC/dst/recon/018451/",
-                                     "/cache/hallb/scratch/rg-d/production/prod/v4ob_aideCxC/dst/recon/018452/"};
+    ROOT::EnableThreadSafety(); // To stop random errors in multithread mode
 
-    std::vector<std::string> files = read_recursive_file_in_directory(runs.at(0));
-    std::vector<std::string> tmp = read_recursive_file_in_directory(runs.at(1));
-    files.insert(files.end(), tmp.begin(), tmp.end());
+
+    // --------------------------------------------------------------------------------------------
+    // Matt study : -------------------------------------------------------------------------------
     
-    std::cout << "size : " << files.size() << std::endl;
+    // Carbon runs :
+    const toml::table CxC_config = toml::parse_file("/work/clas12/ouillon/Analysis_RG-D/config/CxC_config.toml");
+    std::vector<std::string> files_CxC = read_recursive_file_in_directory("/cache/hallb/scratch/rg-d/production/Bspot/v5dstCxC/dst/recon/");
+    std::cout << "size CxC runs : " << files_CxC.size() << std::endl;
+    std::map<std::string, NumberError<double>> map_yield_for_Q2_bins_for_CxC;
 
+    std::vector<std::string> runs = {
+  "018440", "018441", "018442", "018443", "018444", "018445","018498", "018524", "018756", "018850"
+    };
+    std::vector<std::string> outbending_files_CxC;
+    for(auto &s1 : files_CxC) {
+        for(auto &s2 : runs) {
+            if (s1.find(s2) != std::string::npos) {
+                outbending_files_CxC.push_back(s1);
+            }
+        }
+    }
 
+    std::cout << "size CxC runs : " << outbending_files_CxC.size() << std::endl;
+
+    // Gets all the runs used : 
+    std::set<std::string> runs_list;
+    for (auto s : files_CxC){
+        runs_list.insert(s.substr(62,6));
+    }
+
+    std::cout << "CxC runs list : ";
+    for(auto &s: runs_list) {
+        std::cout << s << ", ";
+    }
+    std::cout << std::endl;
     
     Counter counter;
-    
-    
-    // --------------------------------------------------------------------------------------------
-    // Matt study : -----------------------------------------------------------------------------
     auto histograms = Histograms();
-    RGD::Reader reader(histograms, counter);
-    multiThreadReader(reader, files, 6);
-    ploter(histograms);
+    Matt_Study::Reader reader(histograms, counter, CxC_config);
+    multiThreadReader(reader, files_CxC, 20);
+    map_yield_for_Q2_bins_for_CxC = ploter(histograms, RunTypes::CxC, CxC_config);
 
     std::cout << "nb electron : " << counter.nb_e << std::endl;
+
+    std::cout << "nb_total_event : " << counter.nb_total_event << std::endl;
+    std::cout << "nb_event_with_e_pp_pm : " << counter.nb_event_with_e_pp_pm << " ratio : " << static_cast<double>(counter.nb_event_with_e_pp_pm)/static_cast<double>(counter.nb_total_event) << std::endl;
+    std::cout << "nb_good_electron_event : " << counter.nb_good_electron_event << " ratio : " << static_cast<double>(counter.nb_good_electron_event)/static_cast<double>(counter.nb_event_with_e_pp_pm) << std::endl;
+    std::cout << "nb_good_pion_plus : " << counter.nb_good_pion_plus  << std::endl;
+    std::cout << "nb_good_minus_plus : " << counter.nb_good_minus_plus << std::endl;
+    std::cout << "nb_good_rho0 : " << counter.nb_good_rho0 << std::endl;
+    std::cout << "nb_good_rho0_W : " << counter.nb_good_rho0_W << " ratio : " << static_cast<double>(counter.nb_good_rho0_W)/static_cast<double>(counter.nb_good_rho0) << std::endl;
+    std::cout << "nb_good_rho0_W_zh : " << counter.nb_good_rho0_W_zh << " ratio : " << static_cast<double>(counter.nb_good_rho0_W_zh)/static_cast<double>(counter.nb_good_rho0_W) << std::endl;
+    std::cout << "nb_good_rho0_W_zh_t : " << counter.nb_good_rho0_W_zh_t << " ratio : " << static_cast<double>(counter.nb_good_rho0_W_zh_t)/static_cast<double>(counter.nb_good_rho0_W_zh) << std::endl;
+    std::cout << "nb_good_rho0_W_zh_t_lc : " << counter.nb_good_rho0_W_zh_t_lc << " ratio : " << static_cast<double>(counter.nb_good_rho0_W_zh_t_lc)/static_cast<double>(counter.nb_good_rho0_W_zh_t) << std::endl;
+    std::cout << "nb_good_rho0_W_zh_t_Q2 : " << counter.nb_good_rho0_W_zh_t_Q2 << std::endl;
+    
+
+
     std::cout << "nb_pion_plus : " << counter.nb_pion_plus << std::endl;
-    std::cout << "nb_pion_minus : " << counter.nb_pion_minus << std::endl;
-    std::cout << "nb_pion_plus_forward : " << counter.nb_pion_plus_forward << std::endl;
-    std::cout << "nb_pion_plus_central : " << counter.nb_pion_plus_central << std::endl;  
-    std::cout << "nb_pion_minus_forward : " << counter.nb_pion_minus_forward << std::endl;
-    std::cout << "nb_pion_minus_central : " << counter.nb_pion_minus_central << std::endl;  
+    std::cout << "nb_pion_plus_pass_chi2 : " << counter.nb_pion_plus_pass_chi2 << "ratio : " << static_cast<double>(counter.nb_pion_plus_pass_chi2)/static_cast<double>(counter.nb_pion_plus) << std::endl; 
+    std::cout << "nb_pion_plus_not_pass_chi2 : " << counter.nb_pion_plus_not_pass_chi2 << "ratio : " << static_cast<double>(counter.nb_pion_plus_not_pass_chi2)/static_cast<double>(counter.nb_pion_plus) << std::endl;
+
+    std::cout << "nb_pion_minus : " << counter.nb_pion_minus<< std::endl;
+    std::cout << "nb_pion_plus_pass_chi2 : " << counter.nb_pion_minus_pass_chi2 << "ratio : " << static_cast<double>(counter.nb_pion_minus_pass_chi2)/static_cast<double>(counter.nb_pion_minus) << std::endl; 
+    std::cout << "nb_pion_plus_not_pass_chi2 : " << counter.nb_pion_minus_not_pass_chi2 << "ratio : " << static_cast<double>(counter.nb_pion_minus_not_pass_chi2)/static_cast<double>(counter.nb_pion_minus) << std::endl;
+
+
+    // --------------------------------------------------------------------------------------------
+
+    
+    /*
+    // LD2 runs :
+    std::vector<std::string> runs = {
+  "018421",  "018429",  "018439",  "018656",  "019058",
+  "018424",  "018431",  "018528",  "018851",  
+    "018427",  "018432",  "018559",  "018873",
+  "018419",  "018428",  "018433",  "018644",  "019021"
+    };
+    std::vector<std::string> files_LD2 = read_recursive_file_in_directory("/cache/hallb/scratch/rg-d/production/Bspot/v5dstLD2/dst/recon/");
+    std::map<std::string, NumberError<double>> map_yield_for_Q2_bins_for_LD2;
+
+    std::vector<std::string> outbending_files_LD2;
+    for(auto &s1 : files_LD2) {
+        for(auto &s2 : runs) {
+            if (s1.find(s2) != std::string::npos) {
+                outbending_files_LD2.push_back(s1);
+            }
+        }
+    }
+
+    std::cout << "size LD2 runs : " << outbending_files_LD2.size() << std::endl;
+
+    // Gets all the runs used : 
+    std::set<std::string> LD2_runs_list;
+    for (auto &s : outbending_files_LD2){
+        // std::cout << "files : " << s << std::endl;
+        // std::cout << "substring : " << s.substr(62,6) << std::endl;
+        LD2_runs_list.insert(s.substr(62,6));
+    }
+
+    std::cout << "LD2 runs list : ";
+    for(auto &s: LD2_runs_list)
+        std::cout << s << ", ";
+    std::cout << std::endl;
+    
+    {
+        Counter counter;
+        auto histograms = Histograms();
+        Matt_Study::Reader reader(histograms, counter, CxC_config);
+        multiThreadReader(reader, outbending_files_LD2, 20);
+        map_yield_for_Q2_bins_for_LD2 = ploter(histograms, RunTypes::LD2, CxC_config);
+
+        std::cout << "nb electron : " << counter.nb_e << std::endl;
+        std::cout << "nb_pion_plus : " << counter.nb_pion_plus << std::endl;
+        std::cout << "nb_pion_minus : " << counter.nb_pion_minus << std::endl;
+        std::cout << "nb_pion_plus_forward : " << counter.nb_pion_plus_forward << std::endl;
+        std::cout << "nb_pion_plus_central : " << counter.nb_pion_plus_central << std::endl;  
+        std::cout << "nb_pion_minus_forward : " << counter.nb_pion_minus_forward << std::endl;
+        std::cout << "nb_pion_minus_central : " << counter.nb_pion_minus_central << std::endl;  
+    }
+    // --------------------------------------------------------------------------------------------
+    */
+
+    /*
+    // Compute Nuclear transparancy : 
+    double thinkness_CxC = 0.4;
+    double density_CxC = 2.2;
+
+    double thinkness_LD2 = 5;
+    double density_LD2 = 0.164;
+
+    auto g = new TGraph();
+    std::vector<double> bins_Q2 = {1,2,2.5,3,3.5,4.5,6};
+
+    int i = 0;
+    for (auto &[key, elm] : map_yield_for_Q2_bins_for_CxC) {
+        double yield_CxC = elm.number;
+        double yield_LD2 = map_yield_for_Q2_bins_for_LD2.at(key).number;
+
+        std::cout << key << " yield CxC : " << yield_CxC << " yield LD2 : " << yield_LD2 << std::endl;
+        double NuclearTransparency = yield_CxC/yield_LD2 * ((thinkness_LD2*density_LD2)/(thinkness_CxC*density_CxC));
+
+        double Q2_value = (bins_Q2.at(i+1) + bins_Q2.at(i))/2.0;
+        g->SetPoint(g->GetN(), Q2_value, NuclearTransparency);
+        i++;
+    }
+
+    std::string path = "/w/hallb-scshelf2102/clas12/ouillon/Analysis_RG-D/plots_Matt_Study/NuclearTransparency/";
+    const auto canvas     = Helper::MakeCanvas();
+    const auto myFileName = "NuclearTransparency";
+
+    g->SetMarkerColor(Helper::Color::kLightBlue);
+    g->SetMarkerStyle(kFullDotLarge);
+    g->SetMarkerSize(1);
+    g->Draw("AP");
+
+    g->GetXaxis()->SetTitle("Q^{2}");
+    g->GetYaxis()->SetTitle("T_{A}");
+
+    Helper::SaveCanvas(canvas, path, myFileName);
+    */
+    
 
     /*
     // --------------------------------------------------------------------------------------------

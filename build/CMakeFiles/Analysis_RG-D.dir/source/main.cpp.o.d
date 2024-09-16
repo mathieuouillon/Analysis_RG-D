@@ -267,8 +267,10 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/filesystem \
  /usr/include/c++/11/bits/fs_fwd.h /usr/include/c++/11/bits/fs_path.h \
  /usr/include/c++/11/codecvt /usr/include/c++/11/bits/fs_dir.h \
- /usr/include/c++/11/bits/fs_ops.h \
- /work/clas12/ouillon/Analysis_RG-D/include/BS_thread_pool.hpp \
+ /usr/include/c++/11/bits/fs_ops.h /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /work/clas12/ouillon/Analysis_RG-D/include/Core/BS_thread_pool.hpp \
  /usr/include/c++/11/condition_variable \
  /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/stop_token \
  /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/semaphore \
@@ -281,8 +283,25 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_deque.h \
  /usr/include/c++/11/bits/deque.tcc /usr/include/c++/11/bits/stl_queue.h \
  /usr/include/c++/11/thread \
- /work/clas12/ouillon/Analysis_RG-D/include/RGD_Reader.hpp \
- /usr/include/c++/11/optional \
+ /work/clas12/ouillon/Analysis_RG-D/include/Core/toml.hpp \
+ /usr/include/c++/11/optional /usr/include/c++/11/cfloat \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/float.h \
+ /usr/include/c++/11/charconv \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/smmintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/tmmintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/pmmintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/emmintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/xmmintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/mmintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/mm_malloc.h \
+ /usr/include/c++/11/stdlib.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/mwaitintrin.h \
+ /usr/lib/gcc/x86_64-redhat-linux/11/include/popcntintrin.h \
+ /usr/include/c++/11/fstream \
+ /usr/include/c++/11/x86_64-redhat-linux/bits/basic_file.h \
+ /usr/include/c++/11/x86_64-redhat-linux/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/RGD_Reader.hpp \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/VectorUtil.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/GenVector/VectorUtil.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/Math.h \
@@ -318,16 +337,11 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/benchmark.hpp \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/event.h \
  /work/clas12/ouillon/Analysis_RG-D/include/../extern/lz4/lib/lz4.h \
- /usr/include/c++/11/fstream \
- /usr/include/c++/11/x86_64-redhat-linux/bits/basic_file.h \
- /usr/include/c++/11/x86_64-redhat-linux/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/readerindex.hpp \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/record.h \
  /work/clas12/ouillon/Analysis_RG-D/include/../extern/lz4/lib/lz4.c \
  /work/clas12/ouillon/Analysis_RG-D/include/../extern/lz4/lib/lz4.h \
- /usr/include/c++/11/stdlib.h \
- /work/clas12/ouillon/Analysis_RG-D/include/Particle.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Core/Particle.hpp \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/Vector3D.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/Vector3Dfwd.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/GenVector/CylindricalEta3D.h \
@@ -340,11 +354,10 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/GenVector/PtEtaPhiM4D.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMath.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TError.h \
- /usr/lib/gcc/x86_64-redhat-linux/11/include/float.h \
  /usr/include/c++/11/math.h \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/bank.h \
- /work/clas12/ouillon/Analysis_RG-D/include/Constantes.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/Histograms.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Core/Constantes.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/Histograms.hpp \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TH1.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TAxis.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TAttAxis.h \
@@ -362,15 +375,27 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TVectorFfwd.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TVectorDfwd.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TFitResultPtr.h \
- /usr/include/c++/11/cfloat \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TH2.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TH1.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixFBasefwd.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixDBasefwd.h \
- /work/clas12/ouillon/Analysis_RG-D/include/Event.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/Counter.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/Ploter.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/PlotHelper.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/Event.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/Cuts.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Core/Counter.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/Ploter.hpp \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixDSym.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixTSym.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixTBase.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixTUtils.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixDSymfwd.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixDUtils.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixDUtilsfwd.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TFitResult.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Fit/FitResult.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/IFunctionfwd.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/IParamFunctionfwd.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TMatrixDSym.h \
+ /work/clas12/ouillon/Analysis_RG-D/include/Core/PlotHelper.hpp \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TCanvas.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TPad.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TVirtualPad.h \
@@ -426,7 +451,11 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TStyle.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TColor.h \
  /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TRatioPlot.h \
- /work/clas12/ouillon/Analysis_RG-D/include/FitFunction.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/Status_Reader.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/Status_Histograms.hpp \
- /work/clas12/ouillon/Analysis_RG-D/include/Status_Ploter.hpp
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TF1NormSum.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/TF1.h \
+ /cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include/Math/MinimizerOptions.h \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/FitFunction.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/RunTypes.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Status_Study/Status_Reader.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Status_Study/Status_Histograms.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Status_Study/Status_Ploter.hpp

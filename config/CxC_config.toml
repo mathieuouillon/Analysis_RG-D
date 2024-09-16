@@ -1,0 +1,20 @@
+[electron_kinematics]
+vz_min = -12
+vz_max = 5
+chi2_min = -5
+chi2_max = 5
+
+[pion_plus_kinematics]
+chi2_min = -10
+chi2_max = 10
+
+[pion_minus_kinematics]
+chi2_min = -10
+chi2_max = 10
+
+[invariants]
+W = 2
+zh = 0.9
+t_min = 0.1
+t_max = 0.5
+lc = 0.5
