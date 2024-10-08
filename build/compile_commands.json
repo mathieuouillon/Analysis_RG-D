@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/work/clas12/ouillon/Analysis_RG-D/build",
+  "command": "/usr/bin/g++  -I/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/almalinux9-gcc11/local/root/6.30.04/include -I/work/clas12/ouillon/Analysis_RG-D/include -I/work/clas12/ouillon/Analysis_RG-D/extern   -std=c++17 -pipe -fsigned-char -pthread -O3 -DNDEBUG -std=gnu++20 -o CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o -c /work/clas12/ouillon/Analysis_RG-D/source/main.cpp",
+  "file": "/work/clas12/ouillon/Analysis_RG-D/source/main.cpp",
+  "output": "CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o"
+}
+]

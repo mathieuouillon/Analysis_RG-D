@@ -73,15 +73,15 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: CMakeFiles/Analysis_RG-D.dir/fla
 CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: /work/clas12/ouillon/Analysis_RG-D/source/main.cpp
 CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: CMakeFiles/Analysis_RG-D.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/work/clas12/ouillon/Analysis_RG-D/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o -MF CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o.d -o CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o -c /work/clas12/ouillon/Analysis_RG-D/source/main.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o -MF CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o.d -o CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o -c /work/clas12/ouillon/Analysis_RG-D/source/main.cpp
 
 CMakeFiles/Analysis_RG-D.dir/source/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Analysis_RG-D.dir/source/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /work/clas12/ouillon/Analysis_RG-D/source/main.cpp > CMakeFiles/Analysis_RG-D.dir/source/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /work/clas12/ouillon/Analysis_RG-D/source/main.cpp > CMakeFiles/Analysis_RG-D.dir/source/main.cpp.i
 
 CMakeFiles/Analysis_RG-D.dir/source/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Analysis_RG-D.dir/source/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /work/clas12/ouillon/Analysis_RG-D/source/main.cpp -o CMakeFiles/Analysis_RG-D.dir/source/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /work/clas12/ouillon/Analysis_RG-D/source/main.cpp -o CMakeFiles/Analysis_RG-D.dir/source/main.cpp.s
 
 # Object files for target Analysis_RG-D
 Analysis_RG__D_OBJECTS = \
