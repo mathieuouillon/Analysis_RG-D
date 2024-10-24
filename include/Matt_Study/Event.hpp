@@ -19,6 +19,7 @@ class Event {
         [[nodiscard]] auto T() const -> double { return fT; }
         [[nodiscard]] auto Zh() const -> double { return fZh; }
         [[nodiscard]] auto Lc() const -> double { return fLc; }
+        [[nodiscard]] auto DeltaE() const -> double { return fDeltaE; }
 
 
     private:
@@ -34,6 +35,7 @@ class Event {
         double fT = std::numeric_limits<double>::quiet_NaN();
         double fZh = std::numeric_limits<double>::quiet_NaN();
         double fLc = std::numeric_limits<double>::quiet_NaN();
+        double fDeltaE = std::numeric_limits<double>::quiet_NaN();
 
 };
 
@@ -50,10 +52,9 @@ Event::Event(const Core::Particle &electron, const  Core::Particle &pionPlus,
             fQ2 = -q1.M2();
             fW2 = (p1 + q1).M2();
             fNu = k1.E() - k2.E();
-            // fNu = q1.E();
             fT = (q1 - p_rho).M2();
             fZh = p_rho.E()/fNu;
             fLc = 0.1973 * (2.0 * fNu / (Core::Constantes::Rho0MassSquare + fQ2));
 
-
+            fDeltaE = q1.E() - (fPionMinus.E() + fPionPlus.E());
         }

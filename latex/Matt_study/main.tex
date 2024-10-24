@@ -30,7 +30,7 @@
     path: \texttt{/cache/hallb/scratch/rg-d/production/Bspot/v5dstCxC/dst/recon/}
     \begin{itemize}
         \item Find event with a trigger electron(\texttt{REC::Particle::pid == 11} and \texttt{status<0}), at least a \(\pi^+\) and at least a \(\pi^-\).
-        \item Apply cut on electron: \(-3 < \chi^2_{pid} < 3\) and \(-12 < v_z < 5\)
+        \item Apply cut on electron: \(-5 < \chi^2_{pid} < 5\) and \(-12 < v_z < 5\)
         \item Find all \(\pi^+\) in event: \texttt{REC::Particle::pid == 211}
         \item Apply cut on \(\pi^+\): \(-10 < \chi^2_{pid} < 10\) 
         \item Find all \(\pi^-\) in event: \texttt{REC::Particle::pid == -211}
@@ -40,7 +40,7 @@
         \begin{itemize}
             \item \(W = (p_i + \gamma^{\star})^2 > 2GeV\), with \(p_i = (0,0,0,M_p)\), \(M_p = 0.938 GeV^2\)
             \item \(z_h = \frac{E_{\rho^0}}{v}> 0.9\)
-            \item \( 0.1 < -t = (\gamma^{\star} - p_{\rho^0}) < 0.5 GeV^2\)
+            \item \( 0.1 < -t = (\gamma^{\star} - p_{\rho^0})^2 < 0.5 GeV^2\)
             \item \(l_c \le 0.5 fm\)
         \end{itemize}
         \item Fill invariant mass of \(\rho^0\) for the \(Q^2\) bins : \(1 \le Q^2 < 2\), \(2 \le Q^2 < 2.5\), \(2.5 \le Q^2 < 3\), \(3 \le Q^2 < 3.5\), \(3.5 \le Q^2 < 4.5\), \(4.5 \le Q^2 < 6\)
@@ -59,18 +59,18 @@
     \begin{itemize}
         \item Total number of event : 354888652
         \item Number of event with a trigger electron (\texttt{REC::Particle::pid == 11} and \texttt{status<0}) and at least a \(\pi^+\) and at least a \(\pi^-\) : 22585713; ratio between this one and the previous number : 0.0636417
-        \item Number of event with a good electron : 19319798; ratio : 0.855399
-        \item Number of \(\pi^+\) after electron cuts: 26473357
-        \item Number of good \(\pi^+\) after electron and \(\pi^+\) cuts : 17525249; ratio : 0.661996
-        \item Number of bad \(\pi^+\) after electron and opposite \(\pi^+\) cuts: 8948108; ratio : 0.338004
-        \item Number of \(\pi^-\) after electron cuts: 24167298
-        \item Number of good \(\pi^-\) after electron and \(\pi^-\) cuts: 19747026; ratio : 0.817097
-        \item Number of bad \(\pi^-\) after electron and opposite \(\pi^-\) cuts: 4420272; ratio : 0.182903
-        \item Number of \(\rho^0\) : 19678575;
-        \item Number of \(\rho^0\) that pass the \(W\) cut : 19034880; ratio : 0.96729
-        \item Number of \(\rho^0\) that pass the \(W\) and \(z_h\) cuts : 343967; ratio : 0.0180704
-        \item Number of \(\rho^0\) that pass the \(W\), \(z_h\) and \(t\) cuts : 158735; ratio : 0.461483
-        \item Number of \(\rho^0\) that pass the \(W\), \(z_h\), \(t\) and \(l_c\) cuts : 9719; ratio : 0.0612278
+        \item Number of event with a good electron : 20067249; ratio : 0.888493
+        \item Number of \(\pi^+\) after electron cuts: 27575088
+        \item Number of good \(\pi^+\) after electron and \(\pi^+\) cuts : 18219354; ratio : 0.660718
+        \item Number of bad \(\pi^+\) after electron and opposite \(\pi^+\) cuts: 9355734; ratio : 0.339282
+        \item Number of \(\pi^-\) after electron cuts: 25090248
+        \item Number of good \(\pi^-\) after electron and \(\pi^-\) cuts: 20446619; ratio : 0.814923
+        \item Number of bad \(\pi^-\) after electron and opposite \(\pi^-\) cuts: 4643629; ratio : 0.185077
+        \item Number of \(\rho^0\) : 20411533;
+        \item Number of \(\rho^0\) that pass the \(W\) cut : 19735078; ratio : 0.966859
+        \item Number of \(\rho^0\) that pass the \(W\) and \(z_h\) cuts : 355804; ratio : 0.018029
+        \item Number of \(\rho^0\) that pass the \(W\), \(z_h\) and \(t\) cuts : 163572; ratio : 0.459725
+        \item Number of \(\rho^0\) that pass the \(W\), \(z_h\), \(t\) and \(l_c\) cuts : 10173; ratio : 0.0621928
     \end{itemize}
     
 
@@ -226,7 +226,7 @@
         \item Apply cut on \(\pi^+\): \(-10 < \chi^2_{pid} < 10\) 
         \item Find all \(\pi^-\) in event: \texttt{REC::Particle::pid == -211}
         \item Apply cut on \(\pi^-\): \(-10 < \chi^2_{pid} < 10\) 
-        \item Find all combinaison of \(\pi^+\) and \(\pi^-\)
+        \item Find all combination of \(\pi^+\) and \(\pi^-\)
         \item Cut to select reaction : 
         \begin{itemize}
             \item \(W = (p_i + \gamma^{\star})^2 > 2GeV\)

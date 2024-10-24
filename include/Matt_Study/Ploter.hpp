@@ -7,6 +7,45 @@
 #include "Matt_Study/FitFunction.hpp"
 #include "Matt_Study/RunTypes.hpp"
 
+double simp_rule(double a, double b, int n, TF1 *f){
+
+    int i = 1; double area = 0;
+    double n2 = n;
+    double h = (b-a)/(n2-1), x=a;
+
+    while(i <= n){
+
+        area = area + f->Eval(x)*pow(2,i%2 + 1)*h/3;
+        x+=h;
+        i++;
+    }
+    area -= (f->Eval(a) * h/3);
+    area -= (f->Eval(b) * h/3);
+
+    return area;
+}
+
+float simpson(float a, float b, int n, TF1 *f)
+{
+    float h, x[n+1], sum = 0;
+    int j;
+    h = (b-a)/n;
+
+    x[0] = a;
+
+    for(j=1; j<=n; j++)
+    {
+        x[j] = a + h*j;
+    }
+
+    for(j=1; j<=n/2; j++)
+    {
+        sum += f->Eval(x[2*j - 2]) + 4*f->Eval(x[2*j - 1]) + f->Eval(x[2*j]);
+    }
+
+    return sum*h/3;
+}
+
 auto plotElectronKinematics(const ElectronKinematics &histElectronKinematics, const std::string &path, const toml::parse_result &config) -> void {
             // Cuts values --------------------------------------------------------------------------------
                 constexpr double NaN = std::numeric_limits<double>::quiet_NaN();
@@ -267,12 +306,34 @@ auto plot_eventKinematics(const EventKinematics &hist, const std::string &path, 
     const auto hist1D_t = hist.hist1D_t->Merge();
     const auto hist1D_zh = hist.hist1D_zh->Merge();
     const auto hist1D_lc = hist.hist1D_lc->Merge();
+    const auto hist1D_DeltaE = hist.hist1D_DeltaE->Merge();
+
     const auto hist1D_W_cut = hist.hist1D_W_cut->Merge();
     const auto hist1D_Q2_cut = hist.hist1D_Q2_cut->Merge();
     const auto hist1D_nu_cut = hist.hist1D_nu_cut->Merge();
     const auto hist1D_t_cut = hist.hist1D_t_cut->Merge();
     const auto hist1D_zh_cut = hist.hist1D_zh_cut->Merge();
     const auto hist1D_lc_cut = hist.hist1D_lc_cut->Merge();
+    const auto hist1D_DeltaE_cut = hist.hist1D_DeltaE_cut->Merge();
+
+    const auto hist1D_electron_p_aftercut = hist.hist1D_electron_p_aftercut->Merge();
+    const auto hist1D_electron_phi_aftercut = hist.hist1D_electron_phi_aftercut->Merge();
+    const auto hist1D_electron_theta_aftercut = hist.hist1D_electron_theta_aftercut->Merge();
+    const auto hist1D_electron_vz_aftercut = hist.hist1D_electron_vz_aftercut->Merge();
+    const auto hist1D_electron_chi2_aftercut = hist.hist1D_electron_chi2_aftercut->Merge();
+
+    const auto hist1D_pion_plus_p_aftercut = hist.hist1D_pion_plus_p_aftercut->Merge();
+    const auto hist1D_pion_plus_phi_aftercut = hist.hist1D_pion_plus_phi_aftercut->Merge();
+    const auto hist1D_pion_plus_theta_aftercut = hist.hist1D_pion_plus_theta_aftercut->Merge();
+    const auto hist1D_pion_plus_vz_aftercut = hist.hist1D_pion_plus_vz_aftercut->Merge();
+    const auto hist1D_pion_plus_chi2_aftercut = hist.hist1D_pion_plus_chi2_aftercut->Merge();
+
+    const auto hist1D_pion_minus_p_aftercut = hist.hist1D_pion_minus_p_aftercut->Merge();
+    const auto hist1D_pion_minus_phi_aftercut = hist.hist1D_pion_minus_phi_aftercut->Merge();
+    const auto hist1D_pion_minus_theta_aftercut = hist.hist1D_pion_minus_theta_aftercut->Merge();
+    const auto hist1D_pion_minus_vz_aftercut = hist.hist1D_pion_minus_vz_aftercut->Merge();
+    const auto hist1D_pion_minus_chi2_aftercut = hist.hist1D_pion_minus_chi2_aftercut->Merge();
+
     // --------------------------------------------------------------------------------------------
 
     // Draw 1D histograms -------------------------------------------------------------------------
@@ -282,6 +343,35 @@ auto plot_eventKinematics(const EventKinematics &hist, const std::string &path, 
     DrawHist1D(hist1D_t,hist1D_t_cut, path, {.fCuts={t_min, t_max},.fScaled=true, .fLabel = t});
     DrawHist1D(hist1D_zh,hist1D_zh_cut, path, {.fCuts={zh_min},.fScaled=true, .fLabel = zh});
     DrawHist1D(hist1D_lc,hist1D_lc_cut, path, {.fCuts={lc_max},.fScaled=true, .fLabel = lc});
+    DrawHist1D(hist1D_DeltaE,hist1D_DeltaE_cut, path, {.fLabel = "Delta E"});
+
+    DrawHist1D(hist1D_electron_p_aftercut, path, {.fLabel = "p_{e} [GeV/c]"});
+    DrawHist1D(hist1D_electron_phi_aftercut, path, {.fLabel = "#phi_{e} [Deg.]"});
+    DrawHist1D(hist1D_electron_theta_aftercut, path, {.fLabel = "#theta_{e} [Deg.]"});
+    DrawHist1D(hist1D_electron_vz_aftercut, path, {.fLabel = "vz_{e} [cm]"});
+    DrawHist1D(hist1D_electron_chi2_aftercut, path, {.fLabel = "#chi^{2}_{e}"});
+
+    DrawHist1D(hist1D_pion_plus_p_aftercut, path, {.fLabel = "p_{#pi^{+}} [GeV/c]"});
+    DrawHist1D(hist1D_pion_plus_phi_aftercut, path, {.fLabel = "#phi_{#pi^{+}} [Deg.]"});
+    DrawHist1D(hist1D_pion_plus_theta_aftercut, path, {.fLabel = "#theta_{#pi^{+}} [Deg.]"});
+    DrawHist1D(hist1D_pion_plus_vz_aftercut, path, {.fLabel = "vz_{#pi^{+}} [cm]"});
+    DrawHist1D(hist1D_pion_plus_chi2_aftercut, path, {.fLabel = "#chi^{2}_{#pi^{+}}"});
+
+    DrawHist1D(hist1D_pion_minus_p_aftercut, path, {.fLabel = "p_{#pi^{-}} [GeV/c]"});
+    DrawHist1D(hist1D_pion_minus_phi_aftercut, path, {.fLabel = "#phi_{#pi^{-}} [Deg.]"});
+    DrawHist1D(hist1D_pion_minus_theta_aftercut, path, {.fLabel = "#theta_{#pi^{-}} [Deg.]"});
+    DrawHist1D(hist1D_pion_minus_vz_aftercut, path, {.fLabel = "vz_{#pi^{-}} [cm]"});
+    
+    // --------------------------------------------------------------------------------------------
+
+    // Merge 2D histograms -------------------------------------------------------------------------
+    const auto hist2D_invMass_vs_Q2 = hist.hist2D_invMass_vs_Q2->Merge();
+    const auto hist2D_invMass_vs_lc = hist.hist2D_invMass_vs_lc->Merge();
+    // --------------------------------------------------------------------------------------------
+
+    // Draw 2D histograms -------------------------------------------------------------------------
+    DrawHist2D(hist2D_invMass_vs_Q2, path, {.fLabelX = "M_{#pi^{+},#pi^{-}} [GeV/c^{2}]", .fLabelY = "Q^{2} [GeV^{2}/c^{2}]"});
+    DrawHist2D(hist2D_invMass_vs_lc, path, {.fLabelX = "M_{#pi^{+},#pi^{-}} [GeV/c^{2}]", .fLabelY = "L_{c} [fm]"});
     // --------------------------------------------------------------------------------------------
 }
 
@@ -306,20 +396,28 @@ auto DrawHistInvariantMassAndComputeYield(const std::shared_ptr<TH1> &h, const s
 
     
     ROOT::Math::MinimizerOptions::SetDefaultMinimizer("Minuit2");
+
+    auto fit_func = std::make_shared<TF1>("fit", mybw2, 0.3, 1.4, 6);
+    fit_func->SetParameter(0, 0.77);   
+    fit_func->SetParameter(1,10.0);   
+    fit_func->SetParameter(2,1.0);  
+    fit_func->SetParameter(3,1.0);  
+    fit_func->SetParameter(4,-1.0); 
+    fit_func->SetParameter(5,1.0); 
     
-    TFitResultPtr r = h->Fit(args.fFitFunc.get(), "S", "", args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax());
-    args.fFitFunc->SetNpx(1000);
-    args.fFitFunc->Draw("same");
+    TFitResultPtr r = h->Fit(fit_func.get(), "S", "", 0.3, 1.4);
+    fit_func->SetNpx(1000);
+    fit_func->Draw("same");
 
     // improve the picture:
-    TF1 *backFcn = new TF1("backFcn",pol3,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
+    TF1 *backFcn = new TF1("backFcn",pol32, 0.3, 1.4, 6);
     backFcn->SetLineColor(Helper::Color::kLightGreen);
-    TF1 *signalFcn = new TF1("signalFcn",BW,args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(),7);
+    TF1 *signalFcn = new TF1("signalFcn",BW4, 0.3, 1.4, 6);
     signalFcn->SetLineColor(Helper::Color::kDarkBlue);
-    Double_t par[7];
+    Double_t par[6];
     
     // writes the fit results into the par array
-    args.fFitFunc->GetParameters(par);
+    fit_func->GetParameters(par);
 
     backFcn->SetParameters(par);
     backFcn->SetNpx(1000);
@@ -329,15 +427,28 @@ auto DrawHistInvariantMassAndComputeYield(const std::shared_ptr<TH1> &h, const s
     signalFcn->SetNpx(1000);
     signalFcn->Draw("same");
 
-    double N_sig_exp = (std::abs(signalFcn->Integral(args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax())))/h->GetBinWidth(1);
-    std::cout << "N_sig : " << N_sig_exp << std::endl;
+    double sigma = 0.150;
+    double mean = signalFcn->GetParameter(0);
+    double cut_min = mean - 3*sigma;
+    double cut_max = mean + 3*sigma;
+
+    TLine *l1 = new TLine();
+    l1->SetLineColor(Helper::Color::kRed);
+    l1->SetLineWidth(2);
+    l1->DrawLine(cut_min, 0, cut_min, 0.8*h->GetMaximum());
+    l1->DrawLine(cut_max, 0, cut_max, 0.8*h->GetMaximum());
+
+    double N_sig_exp = (std::abs(signalFcn->Integral(cut_min, cut_max)))/h->GetBinWidth(1);
+    std::cout << "N_sig : " << N_sig_exp << " bin witdh : " << h->GetBinWidth(1) << std::endl;
     TMatrixDSym c_exp = r->GetCovarianceMatrix();
-    double N_sigErr_exp = (abs(signalFcn->IntegralError(args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(), signalFcn->GetParameters(),c_exp.GetMatrixArray())))/h->GetBinWidth(1);
+    double N_sigErr_exp = (abs(signalFcn->IntegralError(cut_min, cut_max, signalFcn->GetParameters(),c_exp.GetMatrixArray())))/h->GetBinWidth(1);
     std::cout << "N_sigErr_exp : " << N_sigErr_exp << std::endl;
 
-    double N_bckground = (std::abs(backFcn->Integral(args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax())))/h->GetBinWidth(1);
+    std::cout << "test simson rule : " << simpson(cut_min, cut_max, 1000, signalFcn)/h->GetBinWidth(1) << std::endl;
+
+    double N_bckground = (std::abs(backFcn->Integral(cut_min, cut_max)))/h->GetBinWidth(1);
     std::cout << "N_bckground : " << N_bckground << std::endl;
-    double N_bckground_err = (abs(backFcn->IntegralError(args.fFitFunc->GetXmin(), args.fFitFunc->GetXmax(), backFcn->GetParameters(),c_exp.GetMatrixArray())))/h->GetBinWidth(1);
+    double N_bckground_err = (abs(backFcn->IntegralError(cut_min, cut_max, backFcn->GetParameters(),c_exp.GetMatrixArray())))/h->GetBinWidth(1);
     std::cout << "N_bckground_err : " << N_bckground_err << std::endl;
 
     auto format_string = [](const double a) -> std::string {
@@ -384,7 +495,7 @@ auto DrawHistInvariantMassAndComputeYield(const std::shared_ptr<TH1> &h, const s
     for (const auto a: args.fCuts) {
         Helper::DrawLine(TLine(), Helper::Color::kRed, h->GetMinimum(), h->GetMaximum(), args.fType, a);
     }
-    if (args.fSetStats) Helper::SetStatBoxes(canvas, args.fFitFunc != nullptr, h);
+    if (args.fSetStats) Helper::SetStatBoxes(canvas, true, h);
     Helper::SaveCanvas(canvas, path, myFileName);
 
     return {N_sig_exp, N_sigErr_exp};
@@ -405,19 +516,12 @@ auto plot_inv_mass_Q2_bins(const Q2Bins &hist, const std::string &path) -> std::
     // --------------------------------------------------------------------------------------------
 
     // Draw 1D histograms -------------------------------------------------------------------------
-    auto fit_func = std::make_shared<TF1>("fit", mybw, 0.3, 1.4, 7);
-    fit_func->SetParameter(0, 0.77);   
-    fit_func->SetParameter(1, 0.1);    
-    fit_func->SetParameter(2,10.0);   
-    fit_func->SetParameter(3,10.0);  
-    fit_func->SetParameter(4,-1.0);  
-    fit_func->SetParameter(5,0.009);  
-    NumberError<double> N_sig_Q12 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q12, path, {.fTitle="1 #leq Q^{2} < 2", .fFitFunc = fit_func, .fLabel = invMass});
-    NumberError<double> N_sig_Q225 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q225, path, {.fTitle="2 #leq Q^{2} < 2.5", .fFitFunc = fit_func,.fLabel = invMass});
-    NumberError<double> N_sig_Q253 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q253, path, {.fTitle="2.5 #leq Q^{2} < 3", .fFitFunc = fit_func,.fLabel = invMass});
-    NumberError<double> N_sig_Q335 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q335, path, {.fTitle="3 #leq Q^{2} < 3.5", .fFitFunc = fit_func,.fLabel = invMass});
-    NumberError<double> N_sig_Q3545 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q3545, path, {.fTitle="3.5 #leq Q^{2} < 4.5", .fFitFunc = fit_func,.fLabel = invMass});
-    NumberError<double> N_sig_Q456 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q456, path, {.fTitle="4.5 #leq Q^{2} < 6", .fFitFunc = fit_func,.fLabel = invMass});
+    NumberError<double> N_sig_Q12 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q12, path, {.fTitle="1 #leq Q^{2} < 2", .fLabel = invMass});
+    NumberError<double> N_sig_Q225 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q225, path, {.fTitle="2 #leq Q^{2} < 2.5",.fLabel = invMass});
+    NumberError<double> N_sig_Q253 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q253, path, {.fTitle="2.5 #leq Q^{2} < 3",.fLabel = invMass});
+    NumberError<double> N_sig_Q335 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q335, path, {.fTitle="3 #leq Q^{2} < 3.5",.fLabel = invMass});
+    NumberError<double> N_sig_Q3545 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q3545, path, {.fTitle="3.5 #leq Q^{2} < 4.5",.fLabel = invMass});
+    NumberError<double> N_sig_Q456 = DrawHistInvariantMassAndComputeYield(hist1D_inv_Mass_Q456, path, {.fTitle="4.5 #leq Q^{2} < 6",.fLabel = invMass});
     // --------------------------------------------------------------------------------------------
 
     std::map<std::string, NumberError<double>> results{

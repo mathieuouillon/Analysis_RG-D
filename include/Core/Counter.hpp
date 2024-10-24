@@ -37,4 +37,10 @@ struct Counter {
 
     std::atomic_int nb_pion_minus_forward{0};
     std::atomic_int nb_pion_minus_central{0};
+
+    std::atomic_int nb_good_electron_with_good_pp_and_pm{0};
+    std::atomic_int nb_good_pp_with_good_electron_and_pm{0};
+    std::atomic_int nb_good_pm_with_good_pp_and_electron{0};
+
+    std::atomic<double> sum_beam_charge{0};
 };
