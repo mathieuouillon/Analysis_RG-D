@@ -84,6 +84,10 @@ auto main(int argc, char* argv[]) -> int {
     // Matt study :
     // -------------------------------------------------------------------------------
 
+    double nb_electron_CxC = 0;
+    double nb_electron_LD2 = 0;
+
+
     // Carbon runs :
     const toml::table CxC_config = toml::parse_file("/work/clas12/ouillon/Analysis_RG-D/config/CxC_config.toml");
     std::vector<std::string> files_CxC = read_recursive_file_in_directory("/cache/hallb/scratch/rg-d/production/Bspot/v5dstCxC/dst/recon/", 100);
@@ -91,7 +95,7 @@ auto main(int argc, char* argv[]) -> int {
     std::map<std::string, NumberError<double>> map_yield_for_Q2_bins_for_CxC;
 
     std::vector<std::string> runs = {
-        "018440", "018441", "018442", "018443", "018444", "018445", "018498", "018524",
+        "018440", "018441", "018442", "018443", "018444", "018445", "018475", "018498", "018524",
         "018756", "018850"};
     std::vector<std::string> outbending_files_CxC;
     for (auto& s1 : files_CxC) {
@@ -102,7 +106,7 @@ auto main(int argc, char* argv[]) -> int {
         }
     }
 
-    std::cout << "size CxC runs : " << outbending_files_CxC.size() << std::endl;
+    std::cout << "size outbending CxC runs : " << outbending_files_CxC.size() << std::endl;
 
     // Gets all the runs used :
     std::set<std::string> runs_list;
@@ -121,6 +125,8 @@ auto main(int argc, char* argv[]) -> int {
     Matt_Study::Reader reader(histograms, counter, CxC_config);
     multiThreadReader(reader, outbending_files_CxC, 20);
     map_yield_for_Q2_bins_for_CxC = ploter(histograms, RunTypes::CxC, CxC_config);
+
+    nb_electron_CxC = counter.nb_total_event;
 
     std::cout << "nb electron : " << counter.nb_e << std::endl;
 
@@ -188,6 +194,8 @@ auto main(int argc, char* argv[]) -> int {
         multiThreadReader(reader, outbending_files_LD2, 20);
         map_yield_for_Q2_bins_for_LD2 = ploter(histograms, RunTypes::LD2, LD2_config);
 
+        nb_electron_LD2 = counter.nb_total_event;
+
         std::cout << "nb electron : " << counter.nb_e << std::endl;
         std::cout << "nb_pion_plus : " << counter.nb_pion_plus << std::endl;
         std::cout << "nb_pion_minus : " << counter.nb_pion_minus << std::endl;
@@ -251,7 +259,7 @@ auto main(int argc, char* argv[]) -> int {
 
         std::cout << key << " yield CxC : " << yield_CxC << " yield LD2 : " << yield_LD2 << " error CxC : " << error_CxC << " error LD2 : " << error_LD2 << std::endl;
         double NuclearTransparency = yield_CxC / yield_LD2 *
-                                     ((thinkness_LD2 * density_LD2) / (thinkness_CxC * density_CxC));
+                                     ((thinkness_LD2 * density_LD2 * nb_electron_LD2) / (thinkness_CxC * density_CxC * nb_electron_CxC));
 
         double TA = (yield_CxC / (thinkness_CxC * density_CxC)) / (yield_LD2 / (thinkness_LD2 * density_LD2));
 

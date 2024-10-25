@@ -61,8 +61,8 @@ auto Matt_Study::Reader::operator()(const std::string& file) -> void {
             continue;
 
         fCounter.nb_total_event++;
-        if (fCounter.nb_total_event > 200000000)
-            continue;
+        // if (fCounter.nb_total_event > 235615290) //235615290
+        //     continue;
 
         auto topology = FindTopology(REC_Particle);
         if (!topology.has_value())
@@ -305,6 +305,7 @@ auto Matt_Study::Reader::operator()(const std::string& file) -> void {
 
             fHistograms.eventKinematics.hist2D_invMass_vs_Q2->Get()->Fill(invMass, event.Q2());
             fHistograms.eventKinematics.hist2D_invMass_vs_lc->Get()->Fill(invMass, event.Lc());
+            fHistograms.eventKinematics.hist2D_lc_vs_Q2->Get()->Fill(event.Lc(), event.Q2());
 
             // Cuts ---------------------------------------------------------------------------------------
             const bool cut_w = event.W() > W_min;
@@ -369,17 +370,17 @@ auto Matt_Study::Reader::operator()(const std::string& file) -> void {
                 fHistograms.eventKinematics.hist1D_pion_minus_vz_aftercut->Get()->Fill(pionMinus.Vz());
                 fHistograms.eventKinematics.hist1D_pion_minus_chi2_aftercut->Get()->Fill(pionMinus.ChiSquare());
 
-                if (1.0 < event.Q2() && event.Q2() < 2.0)
+                if (1.0 <= event.Q2() && event.Q2() < 2.0)
                     fHistograms.q2Bins.hist1D_inv_Mass_Q12->Get()->Fill(invMass);
-                if (2.0 < event.Q2() && event.Q2() < 2.5)
+                if (2.0 <= event.Q2() && event.Q2() < 2.5)
                     fHistograms.q2Bins.hist1D_inv_Mass_Q225->Get()->Fill(invMass);
-                if (2.5 < event.Q2() && event.Q2() < 3.0)
+                if (2.5 <= event.Q2() && event.Q2() < 3.0)
                     fHistograms.q2Bins.hist1D_inv_Mass_Q253->Get()->Fill(invMass);
-                if (3.0 < event.Q2() && event.Q2() < 3.5)
+                if (3.0 <= event.Q2() && event.Q2() < 3.5)
                     fHistograms.q2Bins.hist1D_inv_Mass_Q335->Get()->Fill(invMass);
-                if (3.5 < event.Q2() && event.Q2() < 4.5)
+                if (3.5 <= event.Q2() && event.Q2() < 4.5)
                     fHistograms.q2Bins.hist1D_inv_Mass_Q3545->Get()->Fill(invMass);
-                if (4.5 < event.Q2() && event.Q2() < 6.0)
+                if (4.5 <= event.Q2() && event.Q2() < 6.0)
                     fHistograms.q2Bins.hist1D_inv_Mass_Q456->Get()->Fill(invMass);
             }
         }

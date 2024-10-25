@@ -64,5 +64,5 @@ Double_t mybw(Double_t* x, Double_t* par) {
 
 //Breit-Wigner + 3rd background function
 Double_t mybw2(Double_t* x, Double_t* par) {
-  return BW4(x, par) + pol32(x, par);
+  return BW3(x, par) + pol32(x, par);
 }

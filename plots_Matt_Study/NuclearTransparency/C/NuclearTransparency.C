@@ -4,11 +4,11 @@
 void NuclearTransparency()
 {
 //=========Macro generated from canvas: c1/
-//=========  (Thu Oct 24 12:56:56 2024) by ROOT version 6.30/04
+//=========  (Fri Oct 25 11:22:11 2024) by ROOT version 6.30/04
    TCanvas *c1 = new TCanvas("c1", "",0,0,800,600);
    gStyle->SetOptFit(1);
    c1->SetHighLightColor(2);
-   c1->Range(-0.4473684,0.5617601,7.447368,0.8815868);
+   c1->Range(-0.4473684,0.5150806,7.447368,1.00724);
    c1->SetFillColor(0);
    c1->SetBorderMode(0);
    c1->SetBorderSize(2);
@@ -20,9 +20,9 @@ void NuclearTransparency()
    c1->SetFrameBorderMode(0);
    
    Double_t Graph_fx1001[6] = { 1.5, 2.25, 2.75, 3.25, 4, 5.25 };
-   Double_t Graph_fy1001[6] = { 0.6400728, 0.6933151, 0.7639768, 0.6570435, 0.7822016, 0.6999564 };
+   Double_t Graph_fy1001[6] = { 0.6099722, 0.6574353, 0.730776, 0.627496, 0.7370742, 0.8441107 };
    Double_t Graph_fex1001[6] = { 0.5, 0.25, 0.25, 0.25, 0.5, 0.75 };
-   Double_t Graph_fey1001[6] = { 0.004481928, 0.01250495, 0.0208289, 0.02791518, 0.04075032, 0.07956138 };
+   Double_t Graph_fey1001[6] = { 0.003543132, 0.009800988, 0.01635319, 0.02218631, 0.0310318, 0.07289966 };
    TGraphErrors *gre = new TGraphErrors(6,Graph_fx1001,Graph_fy1001,Graph_fex1001,Graph_fey1001);
    gre->SetName("");
    gre->SetTitle("");
@@ -35,8 +35,8 @@ void NuclearTransparency()
    gre->SetMarkerStyle(8);
    
    TH1F *Graph_Graph1001 = new TH1F("Graph_Graph1001","",100,0.5,6.5);
-   Graph_Graph1001->SetMinimum(0.6001393);
-   Graph_Graph1001->SetMaximum(0.8432076);
+   Graph_Graph1001->SetMinimum(0.5741396);
+   Graph_Graph1001->SetMaximum(0.9481805);
    Graph_Graph1001->SetDirectory(nullptr);
    Graph_Graph1001->SetStats(0);
 

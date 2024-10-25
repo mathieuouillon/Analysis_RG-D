@@ -367,11 +367,13 @@ auto plot_eventKinematics(const EventKinematics &hist, const std::string &path, 
     // Merge 2D histograms -------------------------------------------------------------------------
     const auto hist2D_invMass_vs_Q2 = hist.hist2D_invMass_vs_Q2->Merge();
     const auto hist2D_invMass_vs_lc = hist.hist2D_invMass_vs_lc->Merge();
+    const auto hist2D_lc_vs_Q2 = hist.hist2D_lc_vs_Q2->Merge();
     // --------------------------------------------------------------------------------------------
 
     // Draw 2D histograms -------------------------------------------------------------------------
     DrawHist2D(hist2D_invMass_vs_Q2, path, {.fLabelX = "M_{#pi^{+},#pi^{-}} [GeV/c^{2}]", .fLabelY = "Q^{2} [GeV^{2}/c^{2}]"});
     DrawHist2D(hist2D_invMass_vs_lc, path, {.fLabelX = "M_{#pi^{+},#pi^{-}} [GeV/c^{2}]", .fLabelY = "L_{c} [fm]"});
+    DrawHist2D(hist2D_lc_vs_Q2, path, {.fLabelX = "L_{c} [fm]", .fLabelY = "Q^{2} [GeV^{2}/c^{2]"});
     // --------------------------------------------------------------------------------------------
 }
 
@@ -400,9 +402,9 @@ auto DrawHistInvariantMassAndComputeYield(const std::shared_ptr<TH1> &h, const s
     auto fit_func = std::make_shared<TF1>("fit", mybw2, 0.3, 1.4, 6);
     fit_func->SetParameter(0, 0.77);   
     fit_func->SetParameter(1,10.0);   
-    fit_func->SetParameter(2,1.0);  
+    fit_func->SetParameter(2,10.0);  
     fit_func->SetParameter(3,1.0);  
-    fit_func->SetParameter(4,-1.0); 
+    fit_func->SetParameter(4,1.0); 
     fit_func->SetParameter(5,1.0); 
     
     TFitResultPtr r = h->Fit(fit_func.get(), "S", "", 0.3, 1.4);
@@ -412,7 +414,7 @@ auto DrawHistInvariantMassAndComputeYield(const std::shared_ptr<TH1> &h, const s
     // improve the picture:
     TF1 *backFcn = new TF1("backFcn",pol32, 0.3, 1.4, 6);
     backFcn->SetLineColor(Helper::Color::kLightGreen);
-    TF1 *signalFcn = new TF1("signalFcn",BW4, 0.3, 1.4, 6);
+    TF1 *signalFcn = new TF1("signalFcn",BW3, 0.3, 1.4, 6);
     signalFcn->SetLineColor(Helper::Color::kDarkBlue);
     Double_t par[6];
     

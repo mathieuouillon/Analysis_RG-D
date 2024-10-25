@@ -149,11 +149,12 @@ struct EventKinematics {
 
     up_TTO_TH2F hist2D_invMass_vs_Q2 = std::make_unique<TTO_TH2F>("invMass_vs_Q2", "", nbBins1D, 0, 2, nbBins1D, 0, 10);
     up_TTO_TH2F hist2D_invMass_vs_lc = std::make_unique<TTO_TH2F>("invMass_vs_lc", "", nbBins1D, 0, 2, nbBins1D, 0, 5);
+    up_TTO_TH2F hist2D_lc_vs_Q2 = std::make_unique<TTO_TH2F>("lc_vs_Q2", "", nbBins1D, 0, 5, nbBins1D, 0, 10);
 
 };
 
 struct Q2Bins {
-    static constexpr int nbBins1D = 200;
+    static constexpr int nbBins1D = 100;
 
     up_TTO_TH1F hist1D_inv_Mass_Q12 = std::make_unique<TTO_TH1F>("inv_Mass_Q12", "", nbBins1D, 0, 2);
     up_TTO_TH1F hist1D_inv_Mass_Q225 = std::make_unique<TTO_TH1F>("inv_Mass_Q225", "", nbBins1D, 0, 2);
