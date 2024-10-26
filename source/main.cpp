@@ -19,6 +19,8 @@
 #include "Status_Study/Status_Ploter.hpp"
 #include "Status_Study/Status_Reader.hpp"
 
+#include "Matt_Study/beam_charge.hpp"
+
 template <typename T>
 auto FormatString(const T a, int precision = 2) -> std::string {
     std::stringstream stream;
@@ -87,7 +89,6 @@ auto main(int argc, char* argv[]) -> int {
     double nb_electron_CxC = 0;
     double nb_electron_LD2 = 0;
 
-
     // Carbon runs :
     const toml::table CxC_config = toml::parse_file("/work/clas12/ouillon/Analysis_RG-D/config/CxC_config.toml");
     std::vector<std::string> files_CxC = read_recursive_file_in_directory("/cache/hallb/scratch/rg-d/production/Bspot/v5dstCxC/dst/recon/", 100);
@@ -110,13 +111,21 @@ auto main(int argc, char* argv[]) -> int {
 
     // Gets all the runs used :
     std::set<std::string> runs_list;
-    for (auto s : files_CxC) {
+    for (auto s : outbending_files_CxC) {
         runs_list.insert(s.substr(62, 6));
     }
 
+    double beam_charge_total_CxC = 0;
     std::cout << "CxC runs list : ";
     for (auto& s : runs_list) {
         std::cout << s << ", ";
+
+        // Get beam charge:
+        int run_number = std::stoi(s);
+        std::cout << "run_number: " << run_number << std::endl;
+        auto [beam_charge, std_beam_charge] = Matt_Study::beam_charge_map[run_number];
+        std::cout << "beam_charge: " << beam_charge << " std_beam_charge: " << std_beam_charge << std::endl;
+        beam_charge_total_CxC += beam_charge;
     }
     std::cout << std::endl;
 
@@ -158,7 +167,7 @@ auto main(int argc, char* argv[]) -> int {
 
     // LD2 runs :
     std::vector<std::string> runs_LD2 = {"018421", "018429", "018439", "018656", "019058", "018424", "018431", "018528", "018851",
-                                     "018427", "018432", "018559", "018873", "018419", "018428", "018433", "018644", "019021"};
+                                         "018427", "018432", "018559", "018873", "018419", "018428", "018433", "018644", "019021"};
     std::vector<std::string> files_LD2 = read_recursive_file_in_directory("/cache/hallb/scratch/rg-d/production/Bspot/v5dstLD2/dst/recon/", 100);
     std::map<std::string, NumberError<double>> map_yield_for_Q2_bins_for_LD2;
     const toml::table LD2_config = toml::parse_file("/work/clas12/ouillon/Analysis_RG-D/config/CxC_config.toml");
@@ -182,9 +191,18 @@ auto main(int argc, char* argv[]) -> int {
         LD2_runs_list.insert(s.substr(62, 6));
     }
 
+    double beam_charge_total_LD2 = 0;
     std::cout << "LD2 runs list : ";
-    for (auto& s : LD2_runs_list)
+    for (auto& s : LD2_runs_list) {
         std::cout << s << ", ";
+
+        // Get beam charge:
+        int run_number = std::stoi(s);
+        std::cout << "run_number: " << run_number << std::endl;
+        auto [beam_charge, std_beam_charge] = Matt_Study::beam_charge_map[run_number];
+        std::cout << "beam_charge: " << beam_charge << " std_beam_charge: " << std_beam_charge << std::endl;
+        beam_charge_total_LD2 += beam_charge;
+    }
     std::cout << std::endl;
 
     {
@@ -241,7 +259,7 @@ auto main(int argc, char* argv[]) -> int {
 
     // Compute Nuclear transparancy :
     double thinkness_CxC = 0.37;
-    double density_CxC = 2.2;
+    double density_CxC = 2;
 
     double thinkness_LD2 = 5;
     double density_LD2 = 0.164;
@@ -259,23 +277,23 @@ auto main(int argc, char* argv[]) -> int {
 
         std::cout << key << " yield CxC : " << yield_CxC << " yield LD2 : " << yield_LD2 << " error CxC : " << error_CxC << " error LD2 : " << error_LD2 << std::endl;
         double NuclearTransparency = yield_CxC / yield_LD2 *
-                                     ((thinkness_LD2 * density_LD2 * nb_electron_LD2) / (thinkness_CxC * density_CxC * nb_electron_CxC));
+                                     ((thinkness_LD2 * density_LD2 * beam_charge_total_LD2 * 0.497) / (thinkness_CxC * density_CxC * beam_charge_total_CxC * 0.5));
 
         double TA = (yield_CxC / (thinkness_CxC * density_CxC)) / (yield_LD2 / (thinkness_LD2 * density_LD2));
 
         std::cout << "NuclearTransparency : " << NuclearTransparency << " TA : " << TA << std::endl;
 
-        double term_error_CxC = std::pow((thinkness_LD2 * density_LD2)/(thinkness_CxC * density_CxC * yield_LD2),2) * std::pow(error_CxC,2);
-        double term_error_LD2 = std::pow((yield_CxC * thinkness_LD2 * density_LD2)/(yield_LD2*yield_LD2*thinkness_CxC * density_CxC),2) * std::pow(error_LD2,2);
-        double error_TA = std::sqrt(term_error_CxC + term_error_LD2);  
+        double term_error_CxC = std::pow((thinkness_LD2 * density_LD2) / (thinkness_CxC * density_CxC * yield_LD2), 2) * std::pow(error_CxC, 2);
+        double term_error_LD2 = std::pow((yield_CxC * thinkness_LD2 * density_LD2) / (yield_LD2 * yield_LD2 * thinkness_CxC * density_CxC), 2) * std::pow(error_LD2, 2);
+        double error_TA = std::sqrt(term_error_CxC + term_error_LD2);
 
-        std::cout << "error TA : " << error_TA << std::endl;   
-        
-        double testerrorTA = NuclearTransparency * std::sqrt( (std::pow(error_LD2,2)/std::pow(yield_LD2,2)) + (std::pow(error_CxC,2)/std::pow(yield_CxC,2)) ) ;                                
+        std::cout << "error TA : " << error_TA << std::endl;
+
+        double testerrorTA = NuclearTransparency * std::sqrt((std::pow(error_LD2, 2) / std::pow(yield_LD2, 2)) + (std::pow(error_CxC, 2) / std::pow(yield_CxC, 2)));
         std::cout << "test error TA : " << testerrorTA << std::endl;
 
-        double errorTA_correct = NuclearTransparency * std::sqrt( (1.0/yield_CxC) + (1.0/yield_LD2)  );
-        double err = ((thinkness_LD2 * density_LD2) / (thinkness_CxC * density_CxC)) * std::sqrt( (  yield_CxC * (yield_CxC + yield_LD2) ) / std::pow(yield_LD2,3) );
+        double errorTA_correct = NuclearTransparency * std::sqrt((1.0 / yield_CxC) + (1.0 / yield_LD2));
+        double err = ((thinkness_LD2 * density_LD2) / (thinkness_CxC * density_CxC)) * std::sqrt((yield_CxC * (yield_CxC + yield_LD2)) / std::pow(yield_LD2, 3));
 
         std::cout << "error TA correct : " << errorTA_correct << std::endl;
         std::cout << "err : " << err << std::endl;

@@ -12,6 +12,7 @@
 #include "Matt_Study/Cuts.hpp"
 #include "Matt_Study/Event.hpp"
 #include "Matt_Study/Histograms.hpp"
+#include "Matt_Study/beam_charge.hpp"
 #include "hipo4/reader.h"
 
 namespace Matt_Study {

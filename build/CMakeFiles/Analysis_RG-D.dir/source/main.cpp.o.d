@@ -445,6 +445,7 @@ CMakeFiles/Analysis_RG-D.dir/source/main.cpp.o: \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/structure.hpp \
  /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/Cuts.hpp \
  /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/Event.hpp \
+ /work/clas12/ouillon/Analysis_RG-D/include/Matt_Study/beam_charge.hpp \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/reader.h \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/bank.h \
  /work/clas12/ouillon/Analysis_RG-D/extern/hipo4/data.hpp \
